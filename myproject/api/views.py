@@ -14,12 +14,13 @@ def getData(request):
     #  many=True allows for serializer to process multiple items
     serializer = NameSerializer(items, many=True)
     # Response will return model data as json data
-    return Response(NameSerializer.data)
+    return Response(serializer.data)
+
 
 # returns validated serialized data from POST
-@api_view(["POST"]) 
+@api_view(["POST"])
 def addItem(request):
     serializer = NameSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save() #adds new db entry
+        serializer.save()  # adds new db entry
     return Response(serializer.data)
